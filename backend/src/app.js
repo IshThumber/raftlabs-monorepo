@@ -14,12 +14,16 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",").filter(Boolean) |
   "http://localhost:3000",
   "https://raftlabs-monorepo.onrender.com",
 ];
+// Matches any Vercel preview/production deployment for this project
+const allowedOriginPatterns = [/^https:\/\/raftlabs-monorepo[^.]*\.vercel\.app$/];
+
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (mobile apps, curl, etc.)
+      // Allow requests with no origin (mobile apps, curl, Supertest, etc.)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (allowedOriginPatterns.some((re) => re.test(origin))) return callback(null, true);
       return callback(new Error(`CORS policy rejected origin: ${origin}`));
     },
     credentials: true,
