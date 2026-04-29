@@ -1,0 +1,68 @@
+const menuItems = [
+  {
+    id: "item-1",
+    name: "Margherita Pizza",
+    description: "Classic tomato base, fresh mozzarella, basil leaves, olive oil drizzle",
+    price: 12.99,
+    category: "Pizza",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80",
+  },
+  {
+    id: "item-2",
+    name: "BBQ Chicken Burger",
+    description: "Grilled chicken breast, smoky BBQ sauce, cheddar, caramelised onions",
+    price: 10.49,
+    category: "Burgers",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+  },
+  {
+    id: "item-3",
+    name: "Pasta Arrabiata",
+    description: "Penne in spicy tomato sauce, garlic, red chilli flakes, fresh parsley",
+    price: 9.99,
+    category: "Pasta",
+    image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=400&q=80",
+  },
+  {
+    id: "item-4",
+    name: "Caesar Salad",
+    description: "Romaine lettuce, parmesan shavings, croutons, classic Caesar dressing",
+    price: 8.49,
+    category: "Salads",
+    image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&q=80",
+  },
+  {
+    id: "item-5",
+    name: "Chicken Tikka Masala",
+    description: "Tender chicken in rich tomato-cream curry, served with basmati rice",
+    price: 13.99,
+    category: "Curries",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
+  },
+  {
+    id: "item-6",
+    name: "Beef Tacos (x3)",
+    description: "Seasoned ground beef, pico de gallo, sour cream, jalapeños, corn tortillas",
+    price: 11.49,
+    category: "Tacos",
+    image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400&q=80",
+  },
+  {
+    id: "item-7",
+    name: "Veggie Spring Rolls (x4)",
+    description: "Crispy rolls filled with glass noodles, cabbage, carrot, served with sweet chilli",
+    price: 6.99,
+    category: "Starters",
+    image: "https://images.unsplash.com/photo-1606525437209-3c44a07c9f5a?w=400&q=80",
+  },
+  {
+    id: "item-8",
+    name: "Chocolate Lava Cake",
+    description: "Warm dark chocolate cake with a molten centre, served with vanilla ice cream",
+    price: 6.49,
+    category: "Desserts",
+    image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=400&q=80",
+  },
+];
+
+module.exports = menuItems;
