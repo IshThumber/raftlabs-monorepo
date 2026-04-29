@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "/api/index"
+      "destination": "https://raftlabs-monorepo.onrender.com/api/:path*"
     },
     {
       "source": "/health",
-      "destination": "/api/index"
+      "destination": "https://raftlabs-monorepo.onrender.com/health"
     },
     {
       "source": "/(.*)",
