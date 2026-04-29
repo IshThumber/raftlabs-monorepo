@@ -30,7 +30,11 @@ function CartConsumer() {
 }
 
 function renderCart() {
-  return render(<CartProvider><CartConsumer /></CartProvider>);
+  return render(
+    <CartProvider>
+      <CartConsumer />
+    </CartProvider>,
+  );
 }
 
 describe("CartContext", () => {

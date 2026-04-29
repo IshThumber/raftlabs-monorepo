@@ -8,9 +8,7 @@ router.get("/", (req, res) => {
   const { category } = req.query;
 
   if (category) {
-    const filtered = menuItems.filter(
-      (item) => item.category.toLowerCase() === category.toLowerCase()
-    );
+    const filtered = menuItems.filter((item) => item.category.toLowerCase() === category.toLowerCase());
     return res.json(filtered);
   }
 
@@ -20,7 +18,11 @@ router.get("/", (req, res) => {
 // GET /api/menu/:id
 router.get("/:id", (req, res) => {
   const item = menuItems.find((i) => i.id === req.params.id);
-  if (!item) return res.status(404).json({ error: "Menu item not found" });
+  if (!item) {
+    return res.status(404).json({
+      error: { code: "NOT_FOUND", message: "Menu item not found" },
+    });
+  }
   res.json(item);
 });
 

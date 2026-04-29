@@ -4,12 +4,14 @@
 
 @layer base {
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
     background-color: #fdf8f2;
     color: #1a1006;
   }
-  h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+  h1,
+  h2,
+  h3 {
+    font-family: "Playfair Display", serif;
   }
 }
 
@@ -28,6 +30,13 @@
   }
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #fdf8f2; }
-::-webkit-scrollbar-thumb { background: #ffd4aa; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fdf8f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffd4aa;
+  border-radius: 3px;
+}

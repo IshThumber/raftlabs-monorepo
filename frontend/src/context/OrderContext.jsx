@@ -18,7 +18,10 @@ export function OrderProvider({ children }) {
 
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.details?.join(", ") || err.error || "Order failed");
+      const errorMessage = err.error?.details
+        ? err.error.details.map((d) => `${d.field}: ${d.message}`).join(", ")
+        : err.error?.message || err.error || "Order failed";
+      throw new Error(errorMessage);
     }
 
     const order = await res.json();
@@ -47,11 +50,7 @@ export function OrderProvider({ children }) {
     setView("menu");
   }, []);
 
-  return (
-    <OrderContext.Provider value={{ activeOrder, view, placeOrder, resetToMenu }}>
-      {children}
-    </OrderContext.Provider>
-  );
+  return <OrderContext.Provider value={{ activeOrder, view, placeOrder, resetToMenu }}>{children}</OrderContext.Provider>;
 }
 
 export function useOrder() {

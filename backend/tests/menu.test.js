@@ -49,6 +49,6 @@ describe("GET /api/menu/:id", () => {
   it("returns 404 for unknown item id", async () => {
     const res = await request(app).get("/api/menu/item-999");
     expect(res.status).toBe(404);
-    expect(res.body).toHaveProperty("error");
+    expect(res.body.error.code).toBe("NOT_FOUND");
   });
 });

@@ -6,10 +6,7 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
   return (
     <>
       {/* Backdrop */}
-      <div
-        className={`fixed inset-0 bg-ink/30 z-40 transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        onClick={onClose}
-      />
+      <div className={`fixed inset-0 bg-ink/30 z-40 transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={onClose} />
 
       {/* Drawer */}
       <div
@@ -20,7 +17,7 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-brand-100">
           <h2 className="text-xl">Your Cart</h2>
-          <button onClick={onClose} className="text-ink/40 hover:text-ink transition-colors text-2xl leading-none">
+          <button onClick={onClose} className="text-ink/40 hover:text-ink transition-colors text-2xl leading-none" aria-label="close cart drawer">
             ×
           </button>
         </div>
@@ -58,11 +55,7 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
                     +
                   </button>
                 </div>
-                <button
-                  onClick={() => removeItem(item.itemId)}
-                  className="text-ink/25 hover:text-red-400 transition-colors text-lg ml-1"
-                  aria-label="remove item"
-                >
+                <button onClick={() => removeItem(item.itemId)} className="text-ink/25 hover:text-red-400 transition-colors text-lg ml-1" aria-label="remove item">
                   ×
                 </button>
               </div>
@@ -74,7 +67,9 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
         {items.length > 0 && (
           <div className="px-6 py-5 border-t border-brand-100 space-y-4">
             <div className="flex justify-between text-base font-semibold">
-              <span>{totalItems} item{totalItems !== 1 ? "s" : ""}</span>
+              <span>
+                {totalItems} item{totalItems !== 1 ? "s" : ""}
+              </span>
               <span className="text-brand-500">${totalPrice.toFixed(2)}</span>
             </div>
             <button className="btn-primary w-full text-base" onClick={onCheckout}>

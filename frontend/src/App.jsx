@@ -18,9 +18,7 @@ function Navbar({ onCartClick }) {
         >
           🛒 Cart
           {totalItems > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 bg-brand-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-              {totalItems}
-            </span>
+            <span className="absolute -top-1.5 -right-1.5 bg-brand-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">{totalItems}</span>
           )}
         </button>
       </div>
@@ -40,12 +38,12 @@ function AppInner() {
       <CartDrawer
         open={cartOpen}
         onClose={() => setCartOpen(false)}
-        onCheckout={() => { setCartOpen(false); setCheckoutOpen(true); }}
+        onCheckout={() => {
+          setCartOpen(false);
+          setCheckoutOpen(true);
+        }}
       />
-      <CheckoutModal
-        open={checkoutOpen}
-        onClose={() => setCheckoutOpen(false)}
-      />
+      <CheckoutModal open={checkoutOpen} onClose={() => setCheckoutOpen(false)} />
     </div>
   );
 }

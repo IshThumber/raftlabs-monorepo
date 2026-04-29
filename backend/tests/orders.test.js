@@ -34,14 +34,20 @@ describe("POST /api/orders", () => {
   it("calculates total price server-side", async () => {
     const res = await request(app).post("/api/orders").send(validPayload);
     // item-1: 12.99 * 2 = 25.98, item-2: 10.49 * 1 = 10.49 → total = 36.47
-    expect(res.body.total).toBeCloseTo(36.47, 2);
+    // Uses integer cents internally, so exact match
+    expect(res.body.total).toBe(36.47);
   });
 
   it("returns 400 when customerName is missing", async () => {
     const { customerName, ...rest } = validPayload;
     const res = await request(app).post("/api/orders").send(rest);
     expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty("details");
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
+    expect(res.body.error.details).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ field: "customerName" }),
+      ])
+    );
   });
 
   it("returns 400 when address is too short", async () => {
@@ -49,6 +55,7 @@ describe("POST /api/orders", () => {
       .post("/api/orders")
       .send({ ...validPayload, address: "Hi" });
     expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
   });
 
   it("returns 400 when phone is invalid", async () => {
@@ -56,6 +63,7 @@ describe("POST /api/orders", () => {
       .post("/api/orders")
       .send({ ...validPayload, phone: "abc" });
     expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
   });
 
   it("returns 400 when items array is empty", async () => {
@@ -63,6 +71,7 @@ describe("POST /api/orders", () => {
       .post("/api/orders")
       .send({ ...validPayload, items: [] });
     expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
   });
 
   it("returns 400 when item quantity is 0", async () => {
@@ -70,6 +79,7 @@ describe("POST /api/orders", () => {
       .post("/api/orders")
       .send({ ...validPayload, items: [{ itemId: "item-1", quantity: 0 }] });
     expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
   });
 
   it("returns 400 when itemId does not exist in menu", async () => {
@@ -77,6 +87,7 @@ describe("POST /api/orders", () => {
       .post("/api/orders")
       .send({ ...validPayload, items: [{ itemId: "item-999", quantity: 1 }] });
     expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
   });
 });
 
@@ -95,7 +106,7 @@ describe("GET /api/orders/:id", () => {
   it("returns 404 for a non-existent order id", async () => {
     const res = await request(app).get("/api/orders/non-existent-id");
     expect(res.status).toBe(404);
-    expect(res.body).toHaveProperty("error");
+    expect(res.body.error.code).toBe("NOT_FOUND");
   });
 });
 
@@ -135,11 +146,12 @@ describe("PATCH /api/orders/:id/status", () => {
 
     const res = await request(app).patch(`/api/orders/${orderId}/status`);
     expect(res.status).toBe(400);
-    expect(res.body.error).toMatch(/final status/i);
+    expect(res.body.error.message).toMatch(/final status/i);
   });
 
   it("returns 404 for unknown order id", async () => {
     const res = await request(app).patch("/api/orders/bogus-id/status");
     expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe("NOT_FOUND");
   });
 });

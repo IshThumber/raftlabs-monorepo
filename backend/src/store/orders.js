@@ -1,11 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-const ORDER_STATUSES = [
-  "Order Received",
-  "Preparing",
-  "Out for Delivery",
-  "Delivered",
-];
+const ORDER_STATUSES = ["Order Received", "Preparing", "Out for Delivery", "Delivered"];
 
 // In-memory store
 const orders = {};
@@ -66,7 +61,12 @@ function broadcastStatus(orderId) {
   if (!order || !sseClients[orderId]) return;
   const data = JSON.stringify({ status: order.status, statusIndex: order.statusIndex });
   sseClients[orderId].forEach((res) => {
-    res.write(`data: ${data}\n\n`);
+    try {
+      res.write(`data: ${data}\n\n`);
+    } catch (e) {
+      // Client disconnected, remove from list
+      removeSseClient(orderId, res);
+    }
   });
 }
 
@@ -81,11 +81,27 @@ function startStatusProgression(orderId) {
     if (order.statusIndex < ORDER_STATUSES.length - 1) {
       statusTimers[orderId] = setTimeout(tick, INTERVAL_MS);
     } else {
+      // Order is Delivered - cleanup timers and SSE clients
       delete statusTimers[orderId];
+      cleanupOrder(orderId);
     }
   };
 
   statusTimers[orderId] = setTimeout(tick, INTERVAL_MS);
+}
+
+// Cleanup SSE clients for an order
+function cleanupOrder(orderId) {
+  if (sseClients[orderId]) {
+    sseClients[orderId].forEach((res) => {
+      try {
+        res.end();
+      } catch (e) {
+        // Ignore errors from already-closed connections
+      }
+    });
+    delete sseClients[orderId];
+  }
 }
 
 function clearAllTimers() {
@@ -110,6 +126,7 @@ module.exports = {
   removeSseClient,
   broadcastStatus,
   startStatusProgression,
+  cleanupOrder,
   clearAllTimers,
   _reset,
 };

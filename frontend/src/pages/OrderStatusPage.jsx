@@ -4,9 +4,9 @@ const STATUSES = ["Order Received", "Preparing", "Out for Delivery", "Delivered"
 
 const STATUS_META = {
   "Order Received": { emoji: "📋", message: "We've got your order and are getting started!" },
-  Preparing:        { emoji: "👨‍🍳", message: "Our chefs are crafting your meal with care." },
+  Preparing: { emoji: "👨‍🍳", message: "Our chefs are crafting your meal with care." },
   "Out for Delivery": { emoji: "🛵", message: "Your food is on its way — sit tight!" },
-  Delivered:        { emoji: "🎉", message: "Enjoy your meal! Hope it's everything you wanted." },
+  Delivered: { emoji: "🎉", message: "Enjoy your meal! Hope it's everything you wanted." },
 };
 
 export default function OrderStatusPage() {
@@ -46,18 +46,13 @@ export default function OrderStatusPage() {
                 <div key={step} className="flex flex-col items-center gap-1.5 w-1/4">
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500
-                      ${done
-                        ? "bg-brand-500 text-white shadow-md shadow-brand-200"
-                        : "bg-brand-100 text-brand-300"
-                      }
+                      ${done ? "bg-brand-500 text-white shadow-md shadow-brand-200" : "bg-brand-100 text-brand-300"}
                       ${active ? "ring-4 ring-brand-200 scale-110" : ""}
                     `}
                   >
                     {done ? "✓" : idx + 1}
                   </div>
-                  <span className={`text-center text-xs leading-tight transition-colors duration-300 ${done ? "text-brand-600 font-medium" : "text-ink/30"}`}>
-                    {step}
-                  </span>
+                  <span className={`text-center text-xs leading-tight transition-colors duration-300 ${done ? "text-brand-600 font-medium" : "text-ink/30"}`}>{step}</span>
                 </div>
               );
             })}
@@ -67,9 +62,16 @@ export default function OrderStatusPage() {
         {/* Order details */}
         <div className="bg-brand-50 rounded-xl p-4 space-y-2">
           <p className="text-xs font-medium text-ink/50 uppercase tracking-wide">Order Details</p>
-          <p className="text-sm"><span className="text-ink/50">Name: </span>{activeOrder.customerName}</p>
-          <p className="text-sm"><span className="text-ink/50">Address: </span>{activeOrder.address}</p>
-          <p className="text-sm"><span className="text-ink/50">Total: </span>
+          <p className="text-sm">
+            <span className="text-ink/50">Name: </span>
+            {activeOrder.customerName}
+          </p>
+          <p className="text-sm">
+            <span className="text-ink/50">Address: </span>
+            {activeOrder.address}
+          </p>
+          <p className="text-sm">
+            <span className="text-ink/50">Total: </span>
             <span className="text-brand-500 font-semibold">${activeOrder.total?.toFixed(2)}</span>
           </p>
           <p className="text-xs text-ink/30 font-mono mt-1">#{activeOrder.id?.slice(0, 8)}</p>
@@ -79,7 +81,9 @@ export default function OrderStatusPage() {
         <div className="space-y-2">
           {activeOrder.items?.map((item) => (
             <div key={item.itemId} className="flex justify-between text-sm">
-              <span className="text-ink/70">{item.name} × {item.quantity}</span>
+              <span className="text-ink/70">
+                {item.name} × {item.quantity}
+              </span>
               <span className="font-medium">${item.subtotal?.toFixed(2)}</span>
             </div>
           ))}

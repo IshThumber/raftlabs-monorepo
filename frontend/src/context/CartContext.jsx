@@ -7,9 +7,7 @@ function cartReducer(state, action) {
     case "ADD_ITEM": {
       const existing = state.find((i) => i.itemId === action.item.id);
       if (existing) {
-        return state.map((i) =>
-          i.itemId === action.item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
+        return state.map((i) => (i.itemId === action.item.id ? { ...i, quantity: i.quantity + 1 } : i));
       }
       return [
         ...state,
@@ -29,9 +27,7 @@ function cartReducer(state, action) {
       if (action.quantity < 1) {
         return state.filter((i) => i.itemId !== action.itemId);
       }
-      return state.map((i) =>
-        i.itemId === action.itemId ? { ...i, quantity: action.quantity } : i
-      );
+      return state.map((i) => (i.itemId === action.itemId ? { ...i, quantity: action.quantity } : i));
     }
 
     case "CLEAR":
@@ -51,15 +47,9 @@ export function CartProvider({ children }) {
   const clearCart = () => dispatch({ type: "CLEAR" });
 
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
-  const totalPrice = parseFloat(
-    items.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)
-  );
+  const totalPrice = parseFloat(items.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2));
 
-  return (
-    <CartContext.Provider value={{ items, addItem, removeItem, setQty, clearCart, totalItems, totalPrice }}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={{ items, addItem, removeItem, setQty, clearCart, totalItems, totalPrice }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {
