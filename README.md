@@ -2,7 +2,7 @@
 
 A full-stack food ordering app built with **React + Vite** (frontend) and **Express.js** (backend), deployed as a monorepo.
 
-**Live:** [raftlabs-monorepo.vercel.app](https://raftlabs-monorepo.vercel.app)  
+**Live:** [raftlabs-monorepo.vercel.app](https://raftlabs-monorepo-kv2v.vercel.app)  
 **API:** [raftlabs-monorepo.onrender.com](https://raftlabs-monorepo.onrender.com)
 
 ---
