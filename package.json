@@ -1,0 +1,16 @@
+{
+  "name": "raftlabs-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.4.1",
+    "uuid": "^8.3.2"
+  }
+}
