@@ -31,7 +31,7 @@ A full-stack food ordering app built with **React + Vite** (frontend) and **Expr
 
 ## Project Structure
 
-```
+```tree
 raftlabs/
 ├── frontend/          # React + Vite SPA
 │   ├── src/
@@ -124,7 +124,7 @@ cd frontend && npm test
 
 | Service    | Role                                            | URL                                                    |
 | ---------- | ----------------------------------------------- | ------------------------------------------------------ |
-| **Vercel** | Hosts the React SPA, proxies `/api/*` to Render | [vercel.app](https://raftlabs-monorepo.vercel.app)     |
+| **Vercel** | Hosts the React SPA, proxies `/api/*` to Render | [vercel.app](raftlabs-monorepo-kv2v.vercel.app)        |
 | **Render** | Runs the persistent Express server + SSE        | [onrender.com](https://raftlabs-monorepo.onrender.com) |
 
 Vercel rewrites proxy all `/api/*` requests to Render, so the browser sees a single origin — no CORS headers required on the frontend.
